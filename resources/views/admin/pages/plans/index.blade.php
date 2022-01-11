@@ -35,6 +35,8 @@
             </div>
         </div>
         <div class="card-body">
+            @include('admin.includes.alerts')
+
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -52,6 +54,9 @@
                             <td>
                                 <a href="{{ route('plans.show', ['plan' => $plan->slug]) }}" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('plan_details.index', ['plan' => $plan->slug]) }}" class="btn btn-sm btn-{{ $plan->planDetails()->count() ? 'success' : 'secondary' }}">
+                                    <i class="fas fa-info-circle"></i>
                                 </a>
                                 <a href="{{ route('plans.edit', ['plan' => $plan->slug]) }}" class="btn btn-sm btn-primary">
                                     <i class="fas fa-edit"></i>

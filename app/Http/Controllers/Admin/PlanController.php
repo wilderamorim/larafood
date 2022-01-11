@@ -17,6 +17,7 @@ class PlanController extends Controller
         parent::__construct();
 
         $this->repository = $plan;
+
         $this->breadcrumb
             ->base(route('admin.index'), 'Dashboard')
             ->addCrumb('Planos', route('plans.index'));
@@ -122,12 +123,20 @@ class PlanController extends Controller
      */
     public function destroy($slug)
     {
-        $plan = $this->repository->where('slug', $slug)->first();
+        $plan = $this->repository
+            ->with('planDetails')
+            ->where('slug', $slug)
+            ->first();
+
+        if ($plan->planDetails->count()) {
+            return redirect()->back()->with('error', 'Existem detalhes vinculados a esse plano, portanto não é possível deletar.');
+        }
+
         if (!$plan) {
             return redirect()->back();
         }
 
-        $plan->delete();
+        //$plan->delete();
 
         return redirect()->route('plans.index');
     }

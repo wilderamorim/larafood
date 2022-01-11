@@ -16,6 +16,11 @@ class Plan extends Model
         'description',
     ];
 
+    public function planDetails()
+    {
+        return $this->hasMany(PlanDetail::class);
+    }
+
     public function search(?string $search)
     {
         return $this
