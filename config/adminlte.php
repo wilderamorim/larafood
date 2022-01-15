@@ -238,7 +238,7 @@ return [
         [
             'text'  => 'Permissões',
             'url'   => 'admin/permissions',
-            'icon'  => 'fas fa-clipboard-check',
+            'icon'  => 'fas fa-tasks',
         ],
     ],
 

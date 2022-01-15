@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ACL\PermissionProfileController;
+use App\Http\Controllers\Admin\ACL\PermissionController;
+use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PlanDetailController;
 
@@ -47,6 +48,15 @@ Route::prefix('admin')->group(function () {
     //permissions
     Route::any('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
     Route::resource('permissions', PermissionController::class);
+
+    //permissions x profiles
+    Route::get('permission-profile/{profile}/permissions', [PermissionProfileController::class, 'permissionsIndex'])->name('permission_profile.permissions.index');
+    Route::any('permission-profile/{profile}/permissions/create', [PermissionProfileController::class, 'permissionsCreate'])->name('permission_profile.permissions.create');
+    Route::post('permission-profile/{profile}/permissions', [PermissionProfileController::class, 'permissionsStore'])->name('permission_profile.permissions.store');
+    Route::delete('permission-profile/{profile}/permissions/{permission}', [PermissionProfileController::class, 'permissionsDestroy'])->name('permission_profile.permissions.destroy');
+
+    Route::get('permission-profile/{permission}/profiles', [PermissionProfileController::class, 'profilesIndex'])->name('permission_profile.profiles.index');
+    Route::delete('permission-profile/{permission}/profiles/{profile}', [PermissionProfileController::class, 'profilesDestroy'])->name('permission_profile.profiles.destroy');
 });
 
 Route::get('/', function () {

@@ -52,6 +52,9 @@
                             <td>{{ $profile->name }}</td>
                             <td>{{ $profile->description }}</td>
                             <td>
+                                <a href="{{ route('permission_profile.permissions.index', ['profile' => $profile->id]) }}" class="btn btn-sm btn-{{ $profile->permissions()->count() ? 'success' : 'secondary' }}">
+                                    <i class="fas fa-tasks"></i>
+                                </a>
                                 <a href="{{ route('profiles.show', ['profile' => $profile->id]) }}" class="btn btn-sm btn-info">
                                     <i class="fas fa-eye"></i>
                                 </a>
