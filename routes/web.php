@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PermissionController;
@@ -19,7 +20,7 @@ use App\Http\Controllers\Admin\PlanDetailController;
 |
 */
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     //dashboard
     Route::get('/', [PlanController::class, 'index'])->name('admin.index');
 
@@ -72,3 +73,5 @@ Route::prefix('admin')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes(['register' => true]);
