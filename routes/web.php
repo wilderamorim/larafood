@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\ACL\ProfilePlanController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PlanDetailController;
+use App\Http\Controllers\SiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,8 +71,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('profile-plan/{profile}/plans/{plan}', [ProfilePlanController::class, 'plansDestroy'])->name('profile_plan.plans.destroy');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
 Auth::routes(['register' => true]);
