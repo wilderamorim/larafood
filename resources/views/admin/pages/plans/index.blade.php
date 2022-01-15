@@ -52,6 +52,9 @@
                             <td>{{ $plan->name }}</td>
                             <td>{{ number_format($plan->price, 2, ',', '.') }}</td>
                             <td>
+                                <a href="{{ route('profile_plan.profiles.index', ['plan' => $plan->id]) }}" class="btn btn-sm btn-{{ $plan->profiles()->count() ? 'warning' : 'secondary' }}">
+                                    <i class="far fa-id-card"></i>
+                                </a>
                                 <a href="{{ route('plan_details.index', ['plan' => $plan->slug]) }}" class="btn btn-sm btn-{{ $plan->planDetails()->count() ? 'success' : 'secondary' }}">
                                     <i class="fas fa-info-circle"></i>
                                 </a>

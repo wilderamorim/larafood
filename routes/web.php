@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
+use App\Http\Controllers\Admin\ACL\ProfilePlanController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PlanDetailController;
 
@@ -57,6 +58,15 @@ Route::prefix('admin')->group(function () {
 
     Route::get('permission-profile/{permission}/profiles', [PermissionProfileController::class, 'profilesIndex'])->name('permission_profile.profiles.index');
     Route::delete('permission-profile/{permission}/profiles/{profile}', [PermissionProfileController::class, 'profilesDestroy'])->name('permission_profile.profiles.destroy');
+
+    //profiles x plans
+    Route::get('profile-plan/{plan}/profiles', [ProfilePlanController::class, 'profilesIndex'])->name('profile_plan.profiles.index');
+    Route::any('profile-plan/{plan}/profiles/create', [ProfilePlanController::class, 'profilesCreate'])->name('profile_plan.profiles.create');
+    Route::post('profile-plan/{plan}/profiles', [ProfilePlanController::class, 'profilesStore'])->name('profile_plan.profiles.store');
+    Route::delete('profile-plan/{plan}/profiles/{profile}', [ProfilePlanController::class, 'profilesDestroy'])->name('profile_plan.profiles.destroy');
+
+    Route::get('profile-plan/{profile}/plans', [ProfilePlanController::class, 'plansIndex'])->name('profile_plan.plans.index');
+    Route::delete('profile-plan/{profile}/plans/{plan}', [ProfilePlanController::class, 'plansDestroy'])->name('profile_plan.plans.destroy');
 });
 
 Route::get('/', function () {

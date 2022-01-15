@@ -21,11 +21,30 @@ class Plan extends Model
         return $this->hasMany(PlanDetail::class);
     }
 
+    public function profiles()
+    {
+        return $this->belongsToMany(Profile::class, 'profile_plan');
+    }
+
     public function search(?string $search)
     {
         return $this
             ->where('name', 'LIKE', "%{$search}%")
             ->orWhere('description', 'LIKE', "%{$search}%")
             ->paginate();
+    }
+
+    public function unlinkedProfiles(?string $search = null)
+    {
+        return Profile::whereNotIn('profiles.id', function ($query) {
+            $query
+                ->select('profile_plan.profile_id')
+                ->from('profile_plan')
+                ->whereRaw("profile_plan.plan_id={$this->id}");
+        })->where(function ($q) use ($search) {
+            if ($search) {
+                $q->where('profiles.name', 'LIKE', "%{$search}%");
+            }
+        })->paginate();
     }
 }

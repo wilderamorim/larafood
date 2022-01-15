@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Perfis da Permissão: ' . $permission->name)
+@section('title', 'Planos do Perfil: ' . $profile->name)
 
 @section('content_header')
     <div class="d-flex align-items-center justify-content-between">
-        <h1>Perfis da Permissão: {{ $permission->name }}</h1>
+        <h1>Planos do Perfil: {{ $profile->name }}</h1>
     </div>
 
     <!--breadcrumb-->
@@ -17,7 +17,7 @@
         <div class="card-body">
             @include('admin.includes.alerts')
 
-            @if($profiles->count())
+            @if($plans->count())
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -28,12 +28,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($profiles as $profile)
+                        @foreach($plans as $plan)
                             <tr>
-                                <td>{{ $profile->name }}</td>
-                                <td>{{ $profile->description }}</td>
+                                <td>{{ $plan->name }}</td>
+                                <td>{{ $plan->description }}</td>
                                 <td>
-                                    <form onsubmit="return confirm('Tem certeza que deseja excluir?');" action="{{ route('permission_profile.profiles.destroy', ['permission' => $permission->id, 'profile' => $profile->id]) }}" method="post" class="d-inline">
+                                    <form onsubmit="return confirm('Tem certeza que deseja excluir?');" action="{{ route('profile_plan.plans.destroy', ['profile' => $profile->id, 'plan' => $plan->id]) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
 
@@ -55,9 +55,9 @@
         </div>
         <div class="card-footer">
             @if(isset($filters))
-                {!! $profiles->appends($filters)->links() !!}
+                {!! $plans->appends($filters)->links() !!}
             @else
-                {!! $profiles->links() !!}
+                {!! $plans->links() !!}
             @endif
         </div>
     </div>

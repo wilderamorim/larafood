@@ -1,10 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Perfis da Permissão: ' . $permission->name)
+@section('title', 'Perfils do Plano: ' . $plan->name)
 
 @section('content_header')
     <div class="d-flex align-items-center justify-content-between">
-        <h1>Perfis da Permissão: {{ $permission->name }}</h1>
+        <h1>Perfils do Plano: {{ $plan->name }}</h1>
+        <a href="{{ route('profile_plan.profiles.create', ['plan' => $plan->id]) }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus-circle"></i>
+            Novo
+        </a>
     </div>
 
     <!--breadcrumb-->
@@ -33,7 +37,7 @@
                                 <td>{{ $profile->name }}</td>
                                 <td>{{ $profile->description }}</td>
                                 <td>
-                                    <form onsubmit="return confirm('Tem certeza que deseja excluir?');" action="{{ route('permission_profile.profiles.destroy', ['permission' => $permission->id, 'profile' => $profile->id]) }}" method="post" class="d-inline">
+                                    <form onsubmit="return confirm('Tem certeza que deseja excluir?');" action="{{ route('profile_plan.profiles.destroy', ['plan' => $plan->id, 'profile' => $profile->id]) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
 
