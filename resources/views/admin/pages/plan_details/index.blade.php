@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Detalhes do Plano ' . $plan->name)
+@section('title', 'Detalhes do Plano: ' . $plan->name)
 
 @section('content_header')
     <div class="d-flex align-items-center justify-content-between">
-        <h1>Detalhes do Plano {{ $plan->name }}</h1>
+        <h1>Detalhes do Plano: {{ $plan->name }}</h1>
         <a href="{{ route('plan_details.create', ['plan' => $plan->slug]) }}" class="btn btn-primary btn-sm">
             <i class="fas fa-plus-circle"></i>
             Novo

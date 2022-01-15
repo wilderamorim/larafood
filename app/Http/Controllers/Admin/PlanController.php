@@ -136,7 +136,7 @@ class PlanController extends Controller
             return redirect()->back();
         }
 
-        //$plan->delete();
+        $plan->delete();
 
         return redirect()->route('plans.index');
     }

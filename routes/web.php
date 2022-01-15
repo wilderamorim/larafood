@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PlanDetailController;
 
@@ -37,6 +39,14 @@ Route::prefix('admin')->group(function () {
     Route::get('plans/{plan}/details/{detail}/edit', [PlanDetailController::class, 'edit'])->name('plan_details.edit');
     Route::put('plans/{plan}/details/{detail}', [PlanDetailController::class, 'update'])->name('plan_details.update');
     Route::delete('plans/{plan}/details/{detail}', [PlanDetailController::class, 'destroy'])->name('plan_details.destroy');
+
+    //profiles
+    Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
+    Route::resource('profiles', ProfileController::class);
+
+    //permissions
+    Route::any('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
+    Route::resource('permissions', PermissionController::class);
 });
 
 Route::get('/', function () {

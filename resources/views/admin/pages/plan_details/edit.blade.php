@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Editar Detalhe do Plano' . $plan->name)
+@section('title', 'Editar Detalhe do Plano: ' . $plan->name)
 
 @section('content_header')
     <div class="d-flex align-items-center justify-content-between">
-        <h1>Editar Detalhe do Plano {{ $plan->name }}</h1>
+        <h1>Editar Detalhe do Plano: {{ $plan->name }}</h1>
     </div>
 
     <!--breadcrumb-->

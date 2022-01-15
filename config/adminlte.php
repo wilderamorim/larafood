@@ -226,9 +226,19 @@ return [
 
     'menu' => [
         [
-            'text' => 'Planos',
-            'url' => 'admin/plans',
-            'icon' => 'fas fa-list-alt',
+            'text'  => 'Planos',
+            'url'   => 'admin/plans',
+            'icon'  => 'fas fa-list-alt',
+        ],
+        [
+            'text'  => 'Perfis',
+            'url'   => 'admin/profiles',
+            'icon'  => 'far fa-id-card',
+        ],
+        [
+            'text'  => 'Permissões',
+            'url'   => 'admin/permissions',
+            'icon'  => 'fas fa-clipboard-check',
         ],
     ],
 
