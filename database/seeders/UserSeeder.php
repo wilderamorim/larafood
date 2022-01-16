@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\{Tenant, User};
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -14,7 +14,9 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $tenant = Tenant::first();
+
+        $tenant->users()->create([
             'name'      => 'Wilder',
             'email'     => 'wilderamorim@msn.com',
             'password'  => bcrypt('123456'),

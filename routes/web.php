@@ -1,14 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ACL\PermissionProfileController;
-use App\Http\Controllers\Admin\ACL\PermissionController;
-use App\Http\Controllers\Admin\ACL\ProfileController;
-use App\Http\Controllers\Admin\ACL\ProfilePlanController;
-use App\Http\Controllers\Admin\PlanController;
-use App\Http\Controllers\Admin\PlanDetailController;
+use Illuminate\Support\Facades\{Auth, Route};
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\Admin\{
+    PlanController,
+    PlanDetailController
+};
+use App\Http\Controllers\Admin\ACL\{
+    PermissionProfileController,
+    PermissionController,
+    ProfileController,
+    ProfilePlanController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -72,5 +75,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 });
 
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
+Route::get('/subscription/{plan}', [SiteController::class, 'subscription'])->name('site.subscription');
 
 Auth::routes(['register' => true]);

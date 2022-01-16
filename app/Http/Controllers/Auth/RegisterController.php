@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Plan;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\Services\TenantService;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -41,6 +41,14 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function showRegistrationForm()
+    {
+        return view('auth.register', [
+            'plans' => Plan::orderBy('price')->get(),
+        ]);
+    }
+
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -53,6 +61,10 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+
+            'company_name' => ['required', 'string', 'max:255', 'unique:tenants,name'],
+            'document' => ['required', 'string', 'min:11', 'max:14', 'unique:tenants'],
+            'plan' => ['required', 'string'],
         ]);
     }
 
@@ -64,10 +76,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $plan = Plan::where('slug', $data['plan'])->first() ?? session('plan');
+        if (!$plan) {
+            return redirect()->route('site.index');
+        }
+
+        return (new TenantService($plan, $data))->make();
     }
 }

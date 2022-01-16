@@ -13,4 +13,15 @@ class SiteController extends Controller
 
         return view('site.pages.index', compact('plans'));
     }
+
+    public function subscription($planSlug)
+    {
+        if (!$plan = Plan::where('slug', $planSlug)->first()) {
+            return redirect()->back();
+        }
+
+        session()->put('plan', $plan);
+
+        return redirect()->route('register');
+    }
 }

@@ -10,22 +10,22 @@ class PlanObserver
     /**
      * Handle the Plan "creating" event.
      *
-     * @param  \App\Models\Plan  $plan
+     * @param Plan $plan
      * @return void
      */
     public function creating(Plan $plan)
     {
-        $plan->slug = Str::kebab($plan->name);
+        $plan->slug = Str::slug($plan->name);
     }
 
     /**
      * Handle the Plan "updating" event.
      *
-     * @param  \App\Models\Plan  $plan
+     * @param Plan $plan
      * @return void
      */
     public function updating(Plan $plan)
     {
-        $plan->slug = Str::kebab($plan->name);
+        $plan->slug = Str::slug($plan->name);
     }
 }
