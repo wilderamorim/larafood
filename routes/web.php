@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\{Auth, Route};
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\Admin\{
+    CategoryController,
     PlanController,
     PlanDetailController,
     UserController,
@@ -73,6 +74,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('profile-plan/{profile}/plans', [ProfilePlanController::class, 'plansIndex'])->name('profile_plan.plans.index');
     Route::delete('profile-plan/{profile}/plans/{plan}', [ProfilePlanController::class, 'plansDestroy'])->name('profile_plan.plans.destroy');
+
+    //categories
+    Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+    Route::resource('categories', CategoryController::class);
 
     //users
     Route::any('users/search', [UserController::class, 'search'])->name('users.search');
