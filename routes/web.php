@@ -4,13 +4,14 @@ use Illuminate\Support\Facades\{Auth, Route};
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\Admin\{
     PlanController,
-    PlanDetailController
+    PlanDetailController,
+    UserController,
 };
 use App\Http\Controllers\Admin\ACL\{
     PermissionProfileController,
     PermissionController,
     ProfileController,
-    ProfilePlanController
+    ProfilePlanController,
 };
 
 /*
@@ -72,6 +73,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('profile-plan/{profile}/plans', [ProfilePlanController::class, 'plansIndex'])->name('profile_plan.plans.index');
     Route::delete('profile-plan/{profile}/plans/{plan}', [ProfilePlanController::class, 'plansDestroy'])->name('profile_plan.plans.destroy');
+
+    //users
+    Route::any('users/search', [UserController::class, 'search'])->name('users.search');
+    Route::resource('users', UserController::class);
 });
 
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
