@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Observers\{CategoryObserver, TenantObserver, PlanObserver};
-use App\Models\{Category, Plan, Tenant};
+use App\Observers\{CategoryObserver, ProductObserver, TenantObserver, PlanObserver};
+use App\Models\{Category, Plan, Product, Tenant};
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
         Plan::observe(PlanObserver::class);
         Tenant::observe(TenantObserver::class);
         Category::observe(CategoryObserver::class);
+        Product::observe(ProductObserver::class);
     }
 }

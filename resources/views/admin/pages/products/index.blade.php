@@ -1,13 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Permissões')
+@section('title', 'Produtos')
 
 @section('content_header')
     <div class="d-flex align-items-center justify-content-between">
-        <h1>Permissões</h1>
-        <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm">
+        <h1>Produtos</h1>
+        <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm">
             <i class="fas fa-plus-circle"></i>
-            Nova
+            Novo
         </a>
     </div>
 
@@ -20,7 +20,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-end">
-                <form action="{{ route('permissions.search') }}" method="post" class="form-inline">
+                <form action="{{ route('products.search') }}" method="post" class="form-inline">
                     @csrf
 
                     <div class="input-group">
@@ -37,32 +37,31 @@
         <div class="card-body">
             @include('admin.includes.alerts')
 
-           @if($permissions->count())
+            @if($products->count())
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                         <tr>
+                            <th scope="col">Imagem</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Descrição</th>
+                            <th scope="col">Preço</th>
                             <th scope="col">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($permissions as $permission)
+                        @foreach($products as $product)
                             <tr>
-                                <td>{{ $permission->name }}</td>
-                                <td>{{ $permission->description }}</td>
-                                <td>
-                                    <a href="{{ route('permission_profile.profiles.index', ['permission' => $permission->id]) }}" class="btn btn-sm btn-{{ $permission->profiles()->count() ? 'success' : 'secondary' }}">
-                                        <i class="far fa-id-card"></i>
-                                    </a>
-                                    <a href="{{ route('permissions.show', ['permission' => $permission->id]) }}" class="btn btn-sm btn-info">
+                                <td class="align-middle"><img src="{{ !empty($product->image) ? asset("/storage/{$product->image}") : '//placehold.it/360x360' }}" alt="..." width="128" class="img-fluid img-thumbnail"></td>
+                                <td class="align-middle">{{ $product->name }}</td>
+                                <td class="align-middle">{{ number_format($product->price, 2, ',', '.') }}</td>
+                                <td class="align-middle">
+                                    <a href="{{ route('products.show', ['product' => $product->id]) }}" class="btn btn-sm btn-info">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('permissions.edit', ['permission' => $permission->id]) }}" class="btn btn-sm btn-primary">
+                                    <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="btn btn-sm btn-primary">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form onsubmit="return confirm('Tem certeza que deseja excluir?');" action="{{ route('permissions.destroy', ['permission' => $permission->id]) }}" method="post" class="d-inline">
+                                    <form onsubmit="return confirm('Tem certeza que deseja excluir?');" action="{{ route('products.destroy', ['product' => $product->id]) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
 
@@ -76,7 +75,7 @@
                         </tbody>
                     </table>
                 </div>
-           @else
+            @else
                 <div class="alert alert-info" role="alert">
                     No data yet.
                 </div>
@@ -84,9 +83,9 @@
         </div>
         <div class="card-footer">
             @if(isset($filters))
-                {!! $permissions->appends($filters)->links() !!}
+                {!! $products->appends($filters)->links() !!}
             @else
-                {!! $permissions->links() !!}
+                {!! $products->links() !!}
             @endif
         </div>
     </div>

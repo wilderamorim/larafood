@@ -37,47 +37,53 @@
         <div class="card-body">
             @include('admin.includes.alerts')
 
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Descrição</th>
-                        <th scope="col">Ações</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($profiles as $profile)
+            @if($profiles->count())
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
                         <tr>
-                            <td>{{ $profile->name }}</td>
-                            <td>{{ $profile->description }}</td>
-                            <td>
-                                <a href="{{ route('profile_plan.plans.index', ['profile' => $profile->id]) }}" class="btn btn-sm btn-{{ $profile->plans()->count() ? 'warning' : 'secondary' }}">
-                                    <i class="fas fa-list-alt"></i>
-                                </a>
-                                <a href="{{ route('permission_profile.permissions.index', ['profile' => $profile->id]) }}" class="btn btn-sm btn-{{ $profile->permissions()->count() ? 'success' : 'secondary' }}">
-                                    <i class="fas fa-tasks"></i>
-                                </a>
-                                <a href="{{ route('profiles.show', ['profile' => $profile->id]) }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ route('profiles.edit', ['profile' => $profile->id]) }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form onsubmit="return confirm('Tem certeza que deseja excluir?');" action="{{ route('profiles.destroy', ['profile' => $profile->id]) }}" method="post" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Ações</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        @foreach($profiles as $profile)
+                            <tr>
+                                <td>{{ $profile->name }}</td>
+                                <td>{{ $profile->description }}</td>
+                                <td>
+                                    <a href="{{ route('profile_plan.plans.index', ['profile' => $profile->id]) }}" class="btn btn-sm btn-{{ $profile->plans()->count() ? 'warning' : 'secondary' }}">
+                                        <i class="fas fa-list-alt"></i>
+                                    </a>
+                                    <a href="{{ route('permission_profile.permissions.index', ['profile' => $profile->id]) }}" class="btn btn-sm btn-{{ $profile->permissions()->count() ? 'success' : 'secondary' }}">
+                                        <i class="fas fa-tasks"></i>
+                                    </a>
+                                    <a href="{{ route('profiles.show', ['profile' => $profile->id]) }}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('profiles.edit', ['profile' => $profile->id]) }}" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form onsubmit="return confirm('Tem certeza que deseja excluir?');" action="{{ route('profiles.destroy', ['profile' => $profile->id]) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <div class="alert alert-info" role="alert">
+                    No data yet.
+                </div>
+            @endif
         </div>
         <div class="card-footer">
             @if(isset($filters))

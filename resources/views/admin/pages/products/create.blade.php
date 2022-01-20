@@ -1,10 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'Nova Categoria')
+@section('title', 'Novo Produto')
 
 @section('content_header')
     <div class="d-flex align-items-center justify-content-between">
-        <h1>Nova Categoria</h1>
+        <h1>Novo Produto</h1>
     </div>
 
     <!--breadcrumb-->
@@ -15,10 +15,10 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('categories.store') }}" method="post">
+            <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
-                @include('admin.pages.categories._partials.form')
+                @include('admin.pages.products._partials.form')
             </form>
         </div>
     </div>

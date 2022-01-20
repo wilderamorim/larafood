@@ -7,7 +7,6 @@ use App\Http\Requests\StoreUpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -43,7 +42,7 @@ class CategoryController extends Controller
     {
         return view('admin.pages.categories.create', [
             'breadcrumb' => $this->breadcrumb
-                ->addCrumb('Nova Cayegoria', '#'),
+                ->addCrumb('Nova Categoria', '#'),
         ]);
     }
 
